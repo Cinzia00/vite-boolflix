@@ -2,36 +2,69 @@
 import store from '../../store'
 
 export default {
-    props: {
-        film: {
-            type: Object,
-            required: true
-        }
-    },
-    data() {
-      return {
-        store,
-        title: this.searchMovies,
-      }
+  props: {
+    film: {
+      type: Object,
+      required: true
     }
+  },
+  data() {
+    return {
+      store,
+      title: this.searchMovies
+    }
+  },
+  methods: {
+    returnFlag(language) {
+      console.log(language);
+      switch (language) {
+        case 'en':
+          return '/img/gb.png'
+          break;
+        case 'it':
+          return '/img/it.png'
+          break;
+        case 'ja':
+          return '/img/jp.png'
+          break;
+        case 'fr':
+          return '/img/fr.png'
+          break;
+        case 'de':
+          return '/img/de.png'
+          break;
+        default:
+          return '/img/default-flag.png'
+          break;
+      }
+
+    }
+  }
 }
+
+
+
 </script>
 
 
 
 <template>
-  <div>
-    <img :src="'https://image.tmdb.org/t/p/w342'+film.poster_path" alt="">
-    <h1>{{ film.title }}</h1>
-    <h2>{{ film.original_title }}</h2>
-    <p>{{ film.original_language }}</p>
+  <li>
+    <img :src="'https://image.tmdb.org/t/p/w154' + film.poster_path" alt="">
+    <h1>{{ film.title || film.name }}</h1>
+    <h2>{{ film.original_title || film.original_name }}</h2>
+    <img :src="this.returnFlag(film.original_language)" alt="">
     <p>{{ film.vote_average }}</p>
-  </div>
-
+  </li>
 </template>
 
 
 
-<style scoped>
+<style lang=scss scoped>
+li {
 
+  h1 {
+    font-size: 20px;
+  }
+}
 </style>

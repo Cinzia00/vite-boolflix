@@ -1,6 +1,14 @@
 <template>
-  <Header @searchMovies="searchMovies" />
-    <Movies v-for="movie in store.movies" :key="movie.id" :film="movie"/>
+  <Header @searchMovies="fetchResults" />
+  <main>
+    <div class="container">
+      <ul class="card_movies">
+        <Movies v-for="movie in store.movies" :key="movie.id" :film="movie" />
+        
+        <Movies v-for="serietv in store.tv" :key="serietv.id" :film="serietv" />
+      </ul>
+    </div>
+  </main>
 </template>
 
 
@@ -21,25 +29,43 @@ export default {
     }
   },
   methods: {
-    searchMovies() {
+    fetchMovies() {
       axios
         .get('https://api.themoviedb.org/3/search/movie?api_key=b126367f63d095daf4b25ffe558a9c02', {
 
           params: {
             query: this.store.searchMovies,
-            language: 'it-IT'
+            language: 'it-IT',
           }
         })
         .then((res) => {
           this.store.movies = res.data.results
           console.log(this.store.searchMovies)
           console.log(res)
+
         }).catch((error) => {
           console.log(error)
-          this.store.movies= []
+          this.store.movies = []
         })
+    },
+    fetchTv() {
+      axios.get('https://api.themoviedb.org/3/search/tv?api_key=b126367f63d095daf4b25ffe558a9c02', {
 
-
+        params: {
+          query: this.store.searchMovies,
+        }
+      })
+        .then((res) => {
+          this.store.tv = res.data.results
+          console.log(res)
+        }).catch((error) => {
+        
+          console.log(error)
+        })
+    },
+    fetchResults() {
+      this.fetchMovies();
+      this.fetchTv();
     }
   }
 }
@@ -48,4 +74,18 @@ export default {
 
 
 
-<style></style>
+<style lang="scss">
+@use '../reset.scss' as *;
+@use './style.css' as *;
+
+
+.container {
+  margin: 0 auto;
+}
+
+.card_movies {
+  display: grid;
+  grid-template-columns: repeat(6, 2fr);
+  gap: 35px;
+}
+</style>
