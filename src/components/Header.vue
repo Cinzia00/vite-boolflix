@@ -17,7 +17,29 @@ export default {
 <template>
   <header>
     <div class="container">
-      <h1 class="title-boolflix">BOOLFLIX</h1>
+      <div class="flex">
+        <h1 class="title-boolflix">BOOLFLIX</h1>
+        <ul class="list-menu">
+          <li>
+            <a href="">Home</a>
+          </li>
+          <li>
+            <a href="">Serie TV</a>
+          </li>
+          <li>
+            <a href="">Film</a>
+          </li>
+          <li>
+            <a href="">Originali</a>
+          </li>
+          <li>
+            <a href="">Aggiunti di recente</a>
+          </li>
+          <li>
+            <a href="">La mia lista</a>
+          </li>
+        </ul>
+      </div>
       <div class="searchbar">
         <input type="text" placeholder="Ricerca film" @keyup.enter="$emit('searchMovies')" v-model="store.searchMovies">
         <button @click="$emit('searchMovies')">Cerca</button>
@@ -35,6 +57,22 @@ export default {
 
 header {
   background-color: black;  
+  color: white;
+
+  .flex {
+    display: flex;
+    gap: 50px;
+  }
+
+  .list-menu{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .list-menu li:hover {
+    color: red;
+  }
 }
 
 .container{
@@ -47,9 +85,9 @@ header {
     gap: 15px;
   }
 
-  button {
+  button, input {
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 3px;
   }
 }
 

@@ -80,12 +80,12 @@ export default {
 
 
 .container {
-  margin: 0 auto;
+  margin-top: 50px;
 }
 
 .card_movies {
   display: grid;
-  grid-template-columns: repeat(6, 2fr);
+  grid-template-columns: repeat(4, 2fr);
   gap: 35px;
 }
 </style>
