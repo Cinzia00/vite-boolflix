@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       store,
-      title: this.searchMovies,
+      title: this.searchMovies
     }
   },
   methods: {
@@ -34,11 +34,6 @@ export default {
     },
     calcolaStelle(voto) {
       const stelle = Math.round(voto / 2)
-      // let stars = ''
-      // for(let i = 0; i < voto; i++) {
-      //   stars += 
-      // }
-
       return stelle;
     }
   }
@@ -65,15 +60,16 @@ export default {
       <h2>{{ film.original_title || film.original_name }}</h2>
       <img :src="returnFlag(film.original_language)" alt="">
       <div class="flex">
-        <div v-for="el in calcolaStelle(film.vote_average)" :key="el">
-          <p class="bg-yellow" v-if="film.vote_average <= film.calcolaStelle"> 
-            <font-awesome-icon icon="fa-regular fa-star" />
+        <div v-for="el in 5" :key="el">
+          <p v-if="el < calcolaStelle(film.vote_average)">
+            <font-awesome-icon icon="fa-solid fa-star" />
           </p>
           <p v-else>
-            <font-awesome-icon icon="fa-solid fa-star" />
+            <font-awesome-icon icon="fa-regular fa-star" />
           </p>
         </div>
       </div>
+      <p>{{ film.overview }}</p>
     </div>
   </li>
 </template>
@@ -99,6 +95,7 @@ export default {
 }
 
 li {
+  position: relative;
 
   h1 {
     font-size: 20px;
@@ -109,17 +106,21 @@ li {
   color: yellow;
 }
 
-// .info-movies {
-//   display: none;
-// }
+.info-movies {
+  display: none;
+}
 
-// .info-movies:hover {
-//   display: block;
-//   position: absolute;
-//   left: 50%;
-//   top: 50%;
-//   transform: translate(-50%);
-// }
+li:hover .info-movies{
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  line-height: 20px;
+}
 
 // .cover:hover {
 //   display: none;
